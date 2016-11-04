@@ -1,7 +1,9 @@
 ##Tables
 	- Songs
+		- has many tags
+		- to validate tags without querying the tag join table i can do a boolean
 	- Tags
-	 do i want people to be able to add any tag they want?
-	do i want a table for each tag?
-	if i don't do a table, how to i save multiple tags?
-
+		- has many songs
+	SongTags
+		- belongs to song
+		- belongs to tag
