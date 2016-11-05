@@ -4,10 +4,10 @@ class Song < ActiveRecord::Base
   validates :title, presence: true, length: { minimum: 3 }, uniqueness: true
   validate :input_quality
 
-  has_many :songtags, inverse_of: :song
+  has_many :songtags, inverse_of: :song, dependent: :destroy
   has_many :tags, through: :songtags
   validates_presence_of :tags
-  accepts_nested_attributes_for :tags
+  accepts_nested_attributes_for :tags, allow_destroy: true
 
   private
   def input_quality
