@@ -4,7 +4,7 @@ class Tag < ActiveRecord::Base
   validates :description, length: { minimum: 3 }, uniqueness: true
   validate :input_quality
 
-  has_many :songtags
+  has_many :songtags, inverse_of: :tag
   has_many :songs, through: :songtags
 
   private
