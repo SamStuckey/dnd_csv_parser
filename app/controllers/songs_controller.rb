@@ -6,15 +6,11 @@ class SongsController < ApplicationController
   end
 
   def create
-    song = Song.find(params[:id])
+    @song = Song.create(song_params)
+    respond_with @song
   end
 
   private
-    def set_song
-      @song = Song.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
       params.require(:song).permit(:title, :tags)
     end
