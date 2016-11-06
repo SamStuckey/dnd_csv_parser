@@ -1,9 +1,5 @@
-##Tables
-	- Songs
-		- has many tags
-		- to validate tags without querying the tag join table i can do a boolean
-	- Tags
-		- has many songs
-	SongTags
-		- belongs to song
-		- belongs to tag
+1. landing page:
+	two tabs, one for browse, one for upload (browse is index).
+		-on load, the page should begin loading files for infinte scroll
+		-on change in the search bar, kill all searches/pagination requrests and
+			create new request with
