@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'songtag/create'
+
   resources :tags
   resources :songs
   # The priority is based upon order of creation: first created -> highest priority.
