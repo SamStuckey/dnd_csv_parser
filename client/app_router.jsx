@@ -1,6 +1,8 @@
 import React from 'react';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
+import Search from './components/search';
+
 class App extends React.Component{
   render () {
     return (
