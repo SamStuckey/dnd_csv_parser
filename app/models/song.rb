@@ -15,6 +15,10 @@ class Song < ActiveRecord::Base
     end
   end
 
+  def chunk_with_limit(limit)
+    Song.all.limit(limit)
+  end
+
   private
   def input_quality
     unless appropriate_characters_only?(title)

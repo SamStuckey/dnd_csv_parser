@@ -1,15 +1,16 @@
 class SongsController < ApplicationController
   def index
-    @songs = Song.all
+    page = song_params[:page]
+    @songs = page ? Song.page(page).per(50) : Song.all
+    respond_with @songs
   end
 
   def create
-    @song = Song.create(song_params)
-    respond_with @song
+    debugger # check params
   end
 
   private
   def song_params
-    params.require(:song).permit(:title, :tags)
+    params.require(:song).permit(:title, :tags, :page)
   end
 end
