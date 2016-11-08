@@ -1,8 +1,10 @@
 class SongsController < ApplicationController
   def index
     page = song_params[:page]
-    @songs = page ? Song.page(page).per(50) : Song.all
-    respond_with @songs
+    @songs = page ? Song.get_page(page) : Song.all
+    if @songs
+      render "songs/index"
+    end
   end
 
   def create

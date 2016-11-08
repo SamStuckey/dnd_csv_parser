@@ -1,5 +1,6 @@
 class Song < ActiveRecord::Base
   include SharedValidations
+  ITEMS_PER_PAGE = 50
 
   validates :title, presence: true, length: { minimum: 3 }, uniqueness: true
   validate :input_quality
@@ -8,6 +9,10 @@ class Song < ActiveRecord::Base
   has_many :tags, through: :songtags, autosave: true
   validates_presence_of :tags
   accepts_nested_attributes_for :tags, allow_destroy: true
+
+  def self.get_page(page)
+    self.all.limit(ITEMS_PER_PAGE).offset(ITEMS_PER_PAGE * page.to_i)
+  end
 
   def tags_attributes=(tags)
     self.tags = tags.map do |tag|

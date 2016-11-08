@@ -1,17 +1,31 @@
 import React from 'react';
-import { currentPage, currentList, SongStore } from '../stores/song_store';
-import { fetchListPage } from '../actions/search_actions';
+import SongStore from '../stores/song_store';
+import { currentPage, currentList, cacheContents } from '../stores/song_store';
+import { fetchListChunk } from '../actions/search_actions';
 
 
 class SongList extends React.Component{
   constructor(props) {
     super(props);
-    this.songListener = SongStore.addListener(this._updateSongs);
+    this.songListener = SongStore.addListener(this._updateSongs.bind(this));
     this.state = {songList: []};
   }
 
   componentDidMount() {
-    fetchListPage(1);
+    fetchListChunk(0);
+  }
+
+  _mapSongs() {
+    const songList = this.state.songList;
+    return Object.keys(songList).map((key) => {
+      const song = songList[key];
+      return (
+        <li className="song" key={key}>
+          {song.title}
+          {song.tags.join(', ')}
+        </li>
+      );
+    });
   }
 
   _updateSongs() {
@@ -20,9 +34,7 @@ class SongList extends React.Component{
   }
 
   render () {
-    const songs = this.state.songList.map((song, idx) => {
-      <li className="song" key={idx}>{song}</li>;
-    });
+    const songs = this._mapSongs();
 
     return (
       <ul className="songs">{songs}</ul>

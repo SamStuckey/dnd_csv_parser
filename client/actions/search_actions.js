@@ -1,18 +1,34 @@
 import AppDispatcher from '../app_dispatcher';
-import SearchConstants from '../constants/search_constants';
-import ErrorConstants from '../constants/error_contants';
+const SearchConstants = require('../constants/search_constants');
+const ErrorConstants = require('../constants/error_constants');
+import { fetchChunk } from '../util/search_api_util';
 
-export const fetchListPage = page => {
+export const fetchListChunk = (page, d) => {
+  const chunkDirCB = _chunkDir(d);
   fetchChunk(
     page,
-    receiveChunk,
+    chunkDirCB,
     setErrors
   );
 };
 
-const receiveChunk = (chunk) => {
+const reciveChunk = (chunk) => {
   AppDispatcher.dispatch({
-    actionType: SearchConstants.RECEIVE_CHUNK,
+    actionType: SearchConstants.POPULATE_CACHE,
+    chunk: chunk
+  });
+};
+
+const upChunk = (chunk) => {
+  AppDispatcher.dispatch({
+    actionType: SearchConstants.UP_CHUNK,
+    chunk: chunk
+  });
+};
+
+const downChunk = (chunk) => {
+  AppDispatcher.dispatch({
+    actionType: SearchConstants.DOWN_CHUNK,
     chunk: chunk
   });
 };
@@ -22,4 +38,14 @@ const setErrors = (errors) => {
     actionType: ErrorConstants.RECEIVE_ERRORS,
     errors: errors
   });
+};
+
+const _chunkDir = (dir) => {
+  if (dir === "up") {
+    return upChunk;
+  } else if (dir === "down") {
+    return downChunk;
+  } else {
+    return reciveChunk;
+  }
 };
