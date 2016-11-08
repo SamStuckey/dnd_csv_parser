@@ -9,3 +9,11 @@ export const fetchChunk = (page, success, errorCB) => {
     }
   });
 };
+
+export const fetchPageLimit = (success) => {
+  $.ajax({
+    method: 'GET',
+    url: 'songs',
+    data: {song: {counter: true}}
+  });
+};

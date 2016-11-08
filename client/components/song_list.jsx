@@ -1,8 +1,6 @@
 import React from 'react';
-import SongStore from '../stores/song_store';
-import { currentPage, currentList, cacheContents } from '../stores/song_store';
+import { currentList, SongStore } from '../stores/song_store';
 import { fetchListChunk } from '../actions/search_actions';
-
 
 class SongList extends React.Component{
   constructor(props) {
@@ -16,16 +14,25 @@ class SongList extends React.Component{
   }
 
   _mapSongs() {
+    const songs = [];
     const songList = this.state.songList;
-    return Object.keys(songList).map((key) => {
+    const keys = Object.keys(songList);
+
+    for(let k = 0; k < keys.length; k++ ){
+      const key = keys[k];
+      if (key === 'page') continue;
+
       const song = songList[key];
-      return (
+
+      songs.push(
         <li className="song" key={key}>
           {song.title}
           {song.tags.join(', ')}
         </li>
       );
-    });
+    }
+
+    return songs;
   }
 
   _updateSongs() {

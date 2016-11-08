@@ -1,46 +1,47 @@
 import React from 'react';
 import SongList from './song_list';
-import { fetchListPage } from '../actions/search_actions';
-import { currentPage } from '../stores/song_store';
+import { fetchListChunk, setPageLimit } from '../actions/search_actions';
+import { pageEnds, pageCount } from '../stores/song_store';
 
-let requested = false;
+let currentQuery;
 class Search extends React.Component{
   componentDidMount () {
-    document.addEventListener('scroll', this._handleScroll);
+    document.addEventListener('scroll', this._handleScroll.bind(this));
+    setPageLimit();
   }
 
-  _fetchLastPage () {
-    const page = currentPage();
-    fetchPage(page - 1);
+  _fetchLastPage (page) {
+    if (page > currentQuery) return;
+    console.log('up fired');
+    currentQuery = page - 1;
+    fetchListChunk(currentQuery);
   }
 
-  _fetchNextPage () {
-    const page = currentPage();
-    fetchPage(page + 1);
+  _fetchNextPage (page) {
+    if (page < currentQuery) return;
+    console.log('down fired');
+    currentQuery = page + 1;
+    fetchListChunk(currentQuery);
   }
 
   _handleScroll () {
-    const st = document.body.scrollTop;
-    const ofh = document.body.offsetHeight;
-    const h = screen.height;
+    const winPos = document.body.scrollTop + screen.height;
+    const docHeight = document.body.offsetHeight;
+    const ends = pageEnds();
+    const pCount = pageCount();
 
-    // console.log('scroll top ' + st);
-    // console.log('ofset ' + ofh);
-    // console.log('screen h ' + h);
-
-    if (st + h >= ofh - 1500 && !requested ) {
-      console.log('update fired');
-      const page = currentPage();
-
-      requested = true;
-      fetchListChunk(page + 1);
+    if (winPos < docHeight * 0.33 && ends.low > 3) {
+      console.log('up load fired');
+      this._fetchLastPage(ends.low);
+    } else if (winPos > docHeight * 0.66 && ends.high < pCount) {
+      this._fetchNextPage(ends.high);
     }
   }
 
   render () {
     return (
       <div id="search-page">
-        <SongList pending={requested}/>
+        <SongList />
       </div>
     );
   }

@@ -1,15 +1,29 @@
 import AppDispatcher from '../app_dispatcher';
 const SearchConstants = require('../constants/search_constants');
 const ErrorConstants = require('../constants/error_constants');
-import { fetchChunk } from '../util/search_api_util';
+import { fetchChunk, fetchPageLimit } from '../util/search_api_util';
 
-export const fetchListChunk = (page, d) => {
-  const chunkDirCB = _chunkDir(d);
+export const fetchListChunk = (page, dir, counter) => {
+  const chunkDirCB = _chunkDir(dir);
   fetchChunk(
     page,
     chunkDirCB,
     setErrors
   );
+};
+
+export const setPageLimit = () => {
+  fetchPageLimit(
+    passPageLimit
+  );
+};
+
+const passPageLimit = (limit) => {
+  debugger
+  AppDispatcher.dispatch({
+    actionType: SearchConstants.SET_LIMIT,
+    limit: limit
+  });
 };
 
 const reciveChunk = (chunk) => {
