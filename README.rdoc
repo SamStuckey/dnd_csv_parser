@@ -1,12 +1,6 @@
-1. landing page:
-	two tabs, one for browse, one for upload (browse is index).
-		-on load, the page should begin loading files for infinte scroll
-		-on change in the search bar, kill all searches/pagination requrests and
-			create new request with
-
-
 TODO
 
-what is that first line in my rails routes file?
-install npm dependencies
-test load page
+Create search bar
+Create upload component
+Fix wacky tags query
+Fix hardcoded page limit

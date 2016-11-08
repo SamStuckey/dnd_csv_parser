@@ -3,11 +3,10 @@ const SearchConstants = require('../constants/search_constants');
 const ErrorConstants = require('../constants/error_constants');
 import { fetchChunk, fetchPageLimit } from '../util/search_api_util';
 
-export const fetchListChunk = (page, dir, counter) => {
-  const chunkDirCB = _chunkDir(dir);
+export const fetchListChunk = (page, counter) => {
   fetchChunk(
     page,
-    chunkDirCB,
+    reciveChunk,
     setErrors
   );
 };
@@ -28,20 +27,6 @@ const passPageLimit = (limit) => {
 const reciveChunk = (chunk) => {
   AppDispatcher.dispatch({
     actionType: SearchConstants.POPULATE_CACHE,
-    chunk: chunk
-  });
-};
-
-const upChunk = (chunk) => {
-  AppDispatcher.dispatch({
-    actionType: SearchConstants.UP_CHUNK,
-    chunk: chunk
-  });
-};
-
-const downChunk = (chunk) => {
-  AppDispatcher.dispatch({
-    actionType: SearchConstants.DOWN_CHUNK,
     chunk: chunk
   });
 };

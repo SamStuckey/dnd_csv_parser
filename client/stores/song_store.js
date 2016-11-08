@@ -16,18 +16,12 @@ SongStore.__onDispatch = payload => {
     case SearchConstants.POPULATE_CACHE:
     _populateCache(payload.chunk);
     break;
-    case(SearchConstants.UP_CHUNK):
-    _upCache(payload.chunk);
-    break;
-    case(SearchConstants.DOWN_CHUNK):
-    _downCache(payload.chunk);
-    break;
   }
 };
 
 // track first and last page for purpose of infinte scroll
-export const pageEnds = () => {
-  return {low: _cache[0].page, high: _cache[_cache.length - 1].page};
+export const lastPage = () => {
+  return _cache[_cache.length - 1].page;
 };
 
 // combine all page objects to be mapped inside of song_list component
@@ -52,20 +46,5 @@ const _populateCache = (chunk) => {
     // Page index starts at zero, so length will fetch the next page
     fetchListChunk(_cache.length);
   }
-  SongStore.__emitChange();
-};
-
-// next page when scrolling up added to cache
-const _upCache = (chunk) => {
-  _cache.unshift(chunk);
-  _cache.pop();
-
-  SongStore.__emitChange();
-};
-
-// next page when scrolling down added to cache
-const _downCache = (chunk) => {
-  _cache.push(chunk);
-  _cache.shift();
   SongStore.__emitChange();
 };
