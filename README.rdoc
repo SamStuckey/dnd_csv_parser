@@ -2,5 +2,6 @@ TODO
 
 Create search bar
 Create upload component
+Create drag and drop
 Fix wacky tags query
 Fix hardcoded page limit
