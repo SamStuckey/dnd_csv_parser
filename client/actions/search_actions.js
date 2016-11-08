@@ -19,7 +19,6 @@ export const setPageLimit = () => {
 };
 
 const passPageLimit = (limit) => {
-  debugger
   AppDispatcher.dispatch({
     actionType: SearchConstants.SET_LIMIT,
     limit: limit

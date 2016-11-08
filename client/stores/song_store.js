@@ -3,7 +3,7 @@ import AppDispatcher from '../app_dispatcher';
 import SearchConstants from '../constants/search_constants';
 import { fetchListChunk } from '../actions/search_actions';
 
-let _pageCount = 21;
+let _pageCount = 19;
 const _cache = [];
 
 export const SongStore = new Store(AppDispatcher);
@@ -17,10 +17,10 @@ SongStore.__onDispatch = payload => {
     _populateCache(payload.chunk);
     break;
     case(SearchConstants.UP_CHUNK):
-    _upCache(payload.chunk, 'up');
+    _upCache(payload.chunk);
     break;
     case(SearchConstants.DOWN_CHUNK):
-    _downCache(payload.chunk, 'down');
+    _downCache(payload.chunk);
     break;
   }
 };
@@ -59,6 +59,7 @@ const _populateCache = (chunk) => {
 const _upCache = (chunk) => {
   _cache.unshift(chunk);
   _cache.pop();
+
   SongStore.__emitChange();
 };
 

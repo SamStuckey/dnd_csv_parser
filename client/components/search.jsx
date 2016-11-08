@@ -14,14 +14,14 @@ class Search extends React.Component{
     if (page > currentQuery) return;
     console.log('up fired');
     currentQuery = page - 1;
-    fetchListChunk(currentQuery);
+    fetchListChunk(currentQuery, 'up');
   }
 
   _fetchNextPage (page) {
     if (page < currentQuery) return;
     console.log('down fired');
     currentQuery = page + 1;
-    fetchListChunk(currentQuery);
+    fetchListChunk(currentQuery, 'down');
   }
 
   _handleScroll () {
@@ -30,8 +30,7 @@ class Search extends React.Component{
     const ends = pageEnds();
     const pCount = pageCount();
 
-    if (winPos < docHeight * 0.33 && ends.low > 3) {
-      console.log('up load fired');
+    if (winPos < docHeight * 0.33 && ends.low > -1) {
       this._fetchLastPage(ends.low);
     } else if (winPos > docHeight * 0.66 && ends.high < pCount) {
       this._fetchNextPage(ends.high);
