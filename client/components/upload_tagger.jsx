@@ -1,5 +1,4 @@
 import React from 'react';
-import { addNewTag } from '../actions/upload_actions';
 import { isValid } from '../util/validation_util';
 import { addTag, resetTags } from '../actions/tag_actions';
 

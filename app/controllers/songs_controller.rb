@@ -10,11 +10,18 @@ class SongsController < ApplicationController
     else
       render json: @songs.errors
     end
-
   end
 
   def create
-    debugger # check params
+    @song = Song.new(
+      title: song_params[:title],
+      tags_attributes: song_params[:tags]
+      )
+    if @song.save
+      render json: @song
+    else
+      render json: @song.errors
+    end
   end
 
   private

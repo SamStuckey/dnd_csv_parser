@@ -1,6 +1,7 @@
 import React from 'react';
 import TagItem from './tag_item';
 import { TagStore, allTags } from '../stores/tag_store';
+import { resetTags } from '../actions/tag_actions';
 
 class TagList extends React.Component{
   constructor (props) {
@@ -11,6 +12,7 @@ class TagList extends React.Component{
 
   componentWillUnmount () {
     this.tagListener.remove();
+    this.uploadListner.remove();
   }
 
   _updateTags () {

@@ -27,7 +27,7 @@ class Song < ActiveRecord::Base
 
   def tags_attributes=(tags)
     self.tags = tags.map do |tag|
-      Tag.find_or_create_by(description: tag[:description])
+      Tag.find_or_create_by(description: tag)
     end
   end
 

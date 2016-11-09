@@ -1,6 +1,8 @@
 import { Store } from 'flux/utils';
+
 import AppDispatcher from '../app_dispatcher';
 import TagConstants from '../constants/tag_constants';
+import UploadConstants from '../constants/upload_constants';
 import { fetchListChunk } from '../actions/search_actions';
 
 let _tags = [];
@@ -15,6 +17,9 @@ TagStore.__onDispatch = payload => {
       _removeTag(payload.tag);
     break;
     case TagConstants.RESET_TAGS:
+      _resetTags();
+    break;
+    case UploadConstants.UPLOAD_SUCCESS:
       _resetTags();
     break;
   }
