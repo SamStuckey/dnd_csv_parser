@@ -9,6 +9,21 @@ class DropContainer extends React.Component{
     super(props);
     this.state = {songs: []};
   }
+
+  _createCSV () {
+    const songs = this.state.songs;
+
+    const lineArray = [];
+    songs.forEach(function (song, index) {
+      const line = `'${song.title}',` + song.tags.join(",");
+      lineArray.push(index === 0 ? "data:text/csv;charset=utf-8," + line : line);
+    });
+    const csvContent = lineArray.join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+  }
+
   _dragEnter () {
     console.log('enter');
   }
@@ -24,6 +39,7 @@ class DropContainer extends React.Component{
 
   _onDrop (e) {
     e.preventDefault();
+    console.log('drop');
 
     const song = movingSong();
     const st = this.state.songs;
@@ -47,16 +63,24 @@ class DropContainer extends React.Component{
   }
 
   render () {
+    let button;
+    if (this.state.songs.length > 0) {
+      button = <button onClick={this._createCSV.bind(this)}>Download</button>;
+    }
+
     const songs = this._mapSongs();
+
     return (
-      <ul
-        id="drop-container"
+      <div id="drop-container"
         onDragEnter={this._dragEnter.bind(this)}
         onDragLeave={this._dragLeave.bind(this)}
         onDragOver={this._onDragOver.bind(this)}
         onDrop={this._onDrop.bind(this)}>
-        {songs}
-      </ul>
+        <ul>
+          { songs }
+        </ul>
+        { button }
+      </div>
     );
   }
 }
