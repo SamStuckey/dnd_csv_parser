@@ -3,35 +3,26 @@ import React from 'react';
 import SongItem from './song_item';
 
 import { movingSong } from '../stores/dnd_store';
+import { creatCSV, downloadCSV } from '../util/export_util';
 
 class DropContainer extends React.Component{
   constructor (props) {
     super(props);
-    this.state = {songs: []};
-  }
-
-  _createCSV () {
-    const songs = this.state.songs;
-
-    const lineArray = ['data:text/csv;charset=utf-8,"song","tags"'];
-    songs.forEach(function (song, index) {
-      const title = song.title;
-      const tags = song.tags.map((t) => t.description).join(',');
-      const line = `"${title}","${tags}"`;
-      lineArray.push(line);
-    });
-    const csvContent = lineArray.join("\n");
-
-    const encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+    this.state = {songs: [], active: false};
   }
 
   _dragEnter () {
-    console.log('enter');
+    this.setState({active:true});
   }
 
   _dragLeave () {
-    console.log('leave');
+    this.setState({active:false});
+  }
+
+  _export () {
+    const content = this.state.songs;
+    const csvFile = createCSV(content);
+    downloadCSV(csvFile);
   }
 
   _isNew (song) {
@@ -39,24 +30,26 @@ class DropContainer extends React.Component{
     return !keys.includes(song.id);
   }
 
-  _onDrop (e) {
-    e.preventDefault();
-    console.log('drop');
-
-    const song = movingSong();
-    const st = this.state.songs;
-
-    if (this._isNew(song)) st.push(song);
-
-    this.setState({songs: st});
+  _isActive () {
+    const active = this.state.active;
+    return "drop-container " + (active ? "hover" : "");
   }
 
-  _onDragOver (e) {
-    e.preventDefault();
+  _dragOver (e) {
     console.log('drag over');
   }
 
-  _mapSongs () {
+  _onDrop (e) {
+    e.preventDefault();
+
+    const song = movingSong();
+    const oldState = this.state.songs;
+
+    if (this._isNew(song)) oldState.push(song);
+    this.setState({songs: oldState});
+  }
+
+  _formatSongs () {
     const songs = this.state.songs;
     return songs.map((song, i) => {
         return <SongItem song={song} key={i}/>;
@@ -67,17 +60,20 @@ class DropContainer extends React.Component{
   render () {
     let button;
     if (this.state.songs.length > 0) {
-      button = <button onClick={this._createCSV.bind(this)}>Download</button>;
+      button = <button onClick={this._export.bind(this)}>Download</button>;
     }
 
-    const songs = this._mapSongs();
+    const songs = this._formatSongs();
+    const look = this._isActive();
 
     return (
       <div id="drop-container"
         onDragEnter={this._dragEnter.bind(this)}
         onDragLeave={this._dragLeave.bind(this)}
-        onDragOver={this._onDragOver.bind(this)}
+        onDragOver={this._dragOver.bind(this)}
         onDrop={this._onDrop.bind(this)}>
+        className={look}
+        ref={(zone) => this.dropZone = zone}>
         <ul>
           { songs }
         </ul>

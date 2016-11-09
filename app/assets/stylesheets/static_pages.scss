@@ -18,9 +18,14 @@ li > .tag {
   float: left;
 }
 
-#drop-container {
+.drop-container {
   border: 1px solid red;
   width: 500px;
   height: 500px;
   float: right;
+
+}
+
+.hover {
+  background-color: #dddddd;
 }
