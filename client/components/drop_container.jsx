@@ -13,10 +13,12 @@ class DropContainer extends React.Component{
   _createCSV () {
     const songs = this.state.songs;
 
-    const lineArray = [];
+    const lineArray = ['data:text/csv;charset=utf-8,"song","tags"'];
     songs.forEach(function (song, index) {
-      const line = `'${song.title}',` + song.tags.join(",");
-      lineArray.push(index === 0 ? "data:text/csv;charset=utf-8," + line : line);
+      const title = song.title;
+      const tags = song.tags.map((t) => t.description).join(',');
+      const line = `"${title}","${tags}"`;
+      lineArray.push(line);
     });
     const csvContent = lineArray.join("\n");
 
