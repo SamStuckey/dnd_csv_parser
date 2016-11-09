@@ -14,3 +14,9 @@ export const removeTag = tag => {
     tag: tag
   });
 };
+
+export const resetTags = () => {
+  AppDispatcher.dispatch({
+    actionType: TagConstants.RESET_TAGS,
+  });
+};

@@ -1,16 +1,29 @@
 import React from 'react';
+
 import SongList from './song_list';
 import SearchForm from './search_form';
 import TagList from './tag_list';
+
 import { fetchListChunk, setPageLimit, resetCache } from '../actions/search_actions';
 import { lastPage, pageCount } from '../stores/song_store';
 import { allTags, TagStore } from '../stores/tag_store';
+import { resetTags } from '../actions/tag_actions';
 
 let currentQuery;
 class Search extends React.Component{
+  constructor (props) {
+    super(props);
+    resetTags();
+  }
+
   componentDidMount () {
     document.addEventListener('scroll', this._handleScroll.bind(this));
     this.tagListener = TagStore.addListener(this._applyTags);
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('scroll', this._handleScroll.bind(this));
+    this.tagListener.remove();
   }
 
   _applyTags () {

@@ -9,6 +9,10 @@ class TagList extends React.Component{
     this.state = {tags: []};
   }
 
+  componentWillUnmount () {
+    this.tagListener.remove();
+  }
+
   _updateTags () {
     const tags = allTags();
     this.setState({tags: tags});

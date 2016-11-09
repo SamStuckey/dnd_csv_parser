@@ -1,12 +1,10 @@
-export const fetchChunk = (page, tags, success, errorCB) => {
+export const fetchChunk = (page, tags, success, error) => {
   $.ajax({
     method: 'GET',
     url: 'songs',
     data: {song: {page: page, tags: tags}},
     success,
-    error: errors => {
-      errorCB(errors);
-    }
+    error
   });
 };
 

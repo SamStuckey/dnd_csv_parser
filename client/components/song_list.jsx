@@ -9,6 +9,10 @@ class SongList extends React.Component{
     this.state = {songList: []};
   }
 
+  componentWillUnmount () {
+    this.songListener.remove();
+  }
+
   componentDidMount() {
     fetchListChunk(0);
   }

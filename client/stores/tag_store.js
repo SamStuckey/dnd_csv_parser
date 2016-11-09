@@ -3,7 +3,7 @@ import AppDispatcher from '../app_dispatcher';
 import TagConstants from '../constants/tag_constants';
 import { fetchListChunk } from '../actions/search_actions';
 
-const _tags = [];
+let _tags = [];
 export const TagStore = new Store(AppDispatcher);
 
 TagStore.__onDispatch = payload => {
@@ -14,6 +14,9 @@ TagStore.__onDispatch = payload => {
     case TagConstants.REMOVE_TAG:
       _removeTag(payload.tag);
     break;
+    case TagConstants.RESET_TAGS:
+      _resetTags();
+    break;
   }
 };
 
@@ -22,12 +25,19 @@ export const allTags = () => {
 };
 
 const _addTag = tag => {
-  _tags.push(tag);
+  if (!_tags.includes(tag)) {
+    _tags.push(tag);
+  }
   TagStore.__emitChange();
 };
 
 const _removeTag = tag => {
   const i = _tags.indexOf(tag);
   if (i > -1) _tags.splice(i, 1);
+  TagStore.__emitChange();
+};
+
+const _resetTags = () => {
+  _tags = [];
   TagStore.__emitChange();
 };
