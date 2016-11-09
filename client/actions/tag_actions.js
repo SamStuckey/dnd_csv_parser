@@ -7,3 +7,10 @@ export const addTag = tag => {
     tag: tag
   });
 };
+
+export const removeTag = tag => {
+  AppDispatcher.dispatch({
+    actionType: TagConstants.REMOVE_TAG,
+    tag: tag
+  });
+};

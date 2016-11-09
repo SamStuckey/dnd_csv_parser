@@ -11,6 +11,9 @@ TagStore.__onDispatch = payload => {
     case TagConstants.ADD_TAG:
       _addTag(payload.tag);
     break;
+    case TagConstants.REMOVE_TAG:
+      _removeTag(payload.tag);
+    break;
   }
 };
 
@@ -20,5 +23,11 @@ export const allTags = () => {
 
 const _addTag = tag => {
   _tags.push(tag);
+  TagStore.__emitChange();
+};
+
+const _removeTag = tag => {
+  const i = _tags.indexOf(tag);
+  if (i > -1) _tags.splice(i, 1);
   TagStore.__emitChange();
 };

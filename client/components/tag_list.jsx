@@ -1,4 +1,5 @@
 import React from 'react';
+import TagItem from './tag_item';
 import { TagStore, allTags } from '../stores/tag_store';
 
 class TagList extends React.Component{
@@ -15,7 +16,11 @@ class TagList extends React.Component{
 
   _formatTags () {
     const tags = allTags();
-    return tags.map((tag, i) => <li key={i}>{tag}</li>);
+    return tags.map((tag, i) => {
+      return (
+        <TagItem key={i} tag={tag}/>
+      );
+    });
   }
 
   render () {

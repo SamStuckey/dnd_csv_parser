@@ -11,7 +11,6 @@ class Search extends React.Component{
   componentDidMount () {
     document.addEventListener('scroll', this._handleScroll.bind(this));
     this.tagListener = TagStore.addListener(this._applyTags);
-    // setPageLimit();
   }
 
   _applyTags () {
