@@ -12,7 +12,6 @@ class TagList extends React.Component{
 
   componentWillUnmount () {
     this.tagListener.remove();
-    this.uploadListner.remove();
   }
 
   _updateTags () {
