@@ -3,6 +3,7 @@ import React from 'react';
 import SongList from './song_list';
 import SearchForm from './search_form';
 import TagList from './tag_list';
+import DropContainer from './drop_container';
 
 import { fetchListChunk, setPageLimit, resetCache } from '../actions/search_actions';
 import { lastPage, pageCount } from '../stores/song_store';
@@ -52,9 +53,12 @@ class Search extends React.Component{
   render () {
     return (
       <div id="search-page">
-        <SearchForm />
-        <TagList />
-        <SongList />
+        <div id="search-container">
+          <SearchForm />
+          <TagList />
+          <SongList />
+        </div>
+        <DropContainer/>
       </div>
     );
   }

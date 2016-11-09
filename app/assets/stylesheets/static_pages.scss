@@ -11,3 +11,16 @@ li > .tag {
   float: left;
   border-left: 1px solid grey;
 }
+
+#search-container {
+  border: 1px solid blue;
+  min-width: 500px;
+  float: left;
+}
+
+#drop-container {
+  border: 1px solid red;
+  width: 500px;
+  height: 500px;
+  float: right;
+}
