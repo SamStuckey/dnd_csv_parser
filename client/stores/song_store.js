@@ -2,9 +2,10 @@ import { Store } from 'flux/utils';
 import AppDispatcher from '../app_dispatcher';
 import SearchConstants from '../constants/search_constants';
 import { fetchListChunk } from '../actions/search_actions';
+import { allTags } from './tag_store';
 
 let _pageCount = 19;
-const _cache = [];
+let _cache = [];
 
 export const SongStore = new Store(AppDispatcher);
 
@@ -14,6 +15,10 @@ SongStore.__onDispatch = payload => {
     _setPageCount(payload.limit);
     break;
     case SearchConstants.POPULATE_CACHE:
+    _populateCache(payload.chunk);
+    break;
+    case SearchConstants.REBUILD_CACHE:
+    _cache = [];
     _populateCache(payload.chunk);
     break;
   }
@@ -44,7 +49,8 @@ const _populateCache = (chunk) => {
   _cache.push(chunk);
   if (_cache.length < 7) {
     // Page index starts at zero, so length will fetch the next page
-    fetchListChunk(_cache.length);
+    const tags = allTags();
+    fetchListChunk(_cache.length, tags);
   }
   SongStore.__emitChange();
 };

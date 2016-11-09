@@ -10,8 +10,19 @@ class Song < ActiveRecord::Base
   validates_presence_of :tags
   accepts_nested_attributes_for :tags, allow_destroy: true
 
-  def self.get_page(page)
-    self.all.limit(ITEMS_PER_PAGE).offset(ITEMS_PER_PAGE * page.to_i)
+  def self.get_page(page, tags)
+    if tags
+      self
+        .includes(:tags)
+        .where(tags: {description: tags})
+        .limit(ITEMS_PER_PAGE)
+        .offset(ITEMS_PER_PAGE * page.to_i)
+    else
+      self
+        .includes(:tags)
+        .limit(ITEMS_PER_PAGE)
+        .offset(ITEMS_PER_PAGE * page.to_i)
+    end
   end
 
   def tags_attributes=(tags)

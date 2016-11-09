@@ -1,20 +1,29 @@
 import React from 'react';
 import SongList from './song_list';
 import SearchForm from './search_form';
-import { fetchListChunk, setPageLimit } from '../actions/search_actions';
+import TagList from './tag_list';
+import { fetchListChunk, setPageLimit, resetCache } from '../actions/search_actions';
 import { lastPage, pageCount } from '../stores/song_store';
+import { allTags, TagStore } from '../stores/tag_store';
 
 let currentQuery;
 class Search extends React.Component{
   componentDidMount () {
     document.addEventListener('scroll', this._handleScroll.bind(this));
+    this.tagListener = TagStore.addListener(this._applyTags);
     // setPageLimit();
+  }
+
+  _applyTags () {
+    const tags = allTags();
+    resetCache(0, tags);
   }
 
   _fetchNextPage (page) {
     if (page < currentQuery) return;
+    const tags = allTags();
     currentQuery = page + 1;
-    fetchListChunk(currentQuery);
+    fetchListChunk(currentQuery, tags);
   }
 
   _handleScroll () {
@@ -32,6 +41,7 @@ class Search extends React.Component{
     return (
       <div id="search-page">
         <SearchForm />
+        <TagList />
         <SongList />
       </div>
     );
