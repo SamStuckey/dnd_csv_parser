@@ -26,7 +26,8 @@ SongStore.__onDispatch = payload => {
 
 // track first and last page for purpose of infinte scroll
 export const lastPage = () => {
-  // return _cache[_cache.length - 1].page;
+  const l = _cache.length;
+  return l ? _cache[l - 1].page : 0;
 };
 
 // combine all page objects to be mapped inside of song_list component
