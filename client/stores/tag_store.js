@@ -17,10 +17,10 @@ TagStore.__onDispatch = payload => {
       _removeTag(payload.tag);
     break;
     case TagConstants.RESET_TAGS:
-      _resetTags();
+      _resetTags(payload);
     break;
     case UploadConstants.UPLOAD_SUCCESS:
-      _resetTags();
+      _resetTags(payload);
     break;
   }
 };
@@ -42,7 +42,9 @@ const _removeTag = tag => {
   TagStore.__emitChange();
 };
 
-const _resetTags = () => {
-  _tags = [];
+const _resetTags = (payload) => {
+  const tags = payload.tags;
+  _tags = tags ? tags.map((t) => t.description) : [];
+
   TagStore.__emitChange();
 };

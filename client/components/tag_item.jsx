@@ -13,7 +13,7 @@ class TagItem extends React.Component{
 
   render () {
     return (
-      <li>
+      <li className="tag">
         {this.props.tag}
         <button onClick={this._removeSelf.bind(this)}>X</button>
       </li>

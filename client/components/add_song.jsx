@@ -2,6 +2,7 @@ import React from 'react';
 
 import UploadTagger from './upload_tagger';
 import TagList from './tag_list';
+import ErrorConstants from '../constants/error_constants';
 
 import { submitSong } from '../actions/upload_actions';
 import { uploadedSong, UploadStore } from '../stores/upload_store';
@@ -23,7 +24,7 @@ class AddSong extends React.Component{
 
   _addUpload () {
     const upload = uploadedSong();
-    this.setState({title: "", upload: upload});
+    this.setState({title: "", upload: upload, tiErr: "", taErr: ""});
   }
 
   _updateTitle (e) {
@@ -33,9 +34,16 @@ class AddSong extends React.Component{
 
   _handleSubmit (e) {
     e.preventDefault();
-    const tags = allTags();
     const title = this.state.title;
-    if (isValid(title)) submitSong(title, tags);
+    const tags = allTags();
+    const tiErr = isValid(title) ? "" : ErrorConstants.STRING_ERROR;
+    const taErr = ((tags.length > 0) ? "" : ErrorConstants.TAG_ERROR);
+
+    if (!!tiErr || !!taErr) {
+      this.setState({tiErr: tiErr, taErr: taErr});
+    } else {
+      submitSong(title, tags);
+    }
   }
 
   _formatUploadedSong () {
@@ -55,13 +63,17 @@ class AddSong extends React.Component{
     return(
       <div>
         <form onSubmit={this._handleSubmit.bind(this)}>
+          { this.state.tiErr }
           <input
+            className="title"
+            placeholder="title"
             value={this.state.title}
             onChange={this._updateTitle.bind(this)}
             />
           <input type="submit" value="submit"/>
         </form>
         <UploadTagger/>
+        { this.state.taErr }
         <TagList />
         { uploadedSong }
       </div>

@@ -3,7 +3,7 @@ import React from 'react';
 import SongItem from './song_item';
 
 import { movingSong } from '../stores/dnd_store';
-import { creatCSV, downloadCSV } from '../util/export_util';
+import { createCSV, downloadCSV } from '../util/export_util';
 
 class DropContainer extends React.Component{
   constructor (props) {
@@ -11,15 +11,18 @@ class DropContainer extends React.Component{
     this.state = {songs: [], active: false};
   }
 
-  _dragEnter () {
+  _dragEnter (e) {
+    e.preventDefault();
     this.setState({active:true});
   }
 
-  _dragLeave () {
+  _dragLeave (e) {
+    e.preventDefault(e);
     this.setState({active:false});
   }
 
-  _export () {
+  _export (e) {
+    e.preventDefault();
     const content = this.state.songs;
     const csvFile = createCSV(content);
     downloadCSV(csvFile);
@@ -36,6 +39,7 @@ class DropContainer extends React.Component{
   }
 
   _dragOver (e) {
+    e.preventDefault();
     console.log('drag over');
   }
 
@@ -46,13 +50,13 @@ class DropContainer extends React.Component{
     const oldState = this.state.songs;
 
     if (this._isNew(song)) oldState.push(song);
-    this.setState({songs: oldState});
+    this.setState({songs: oldState, active: false});
   }
 
   _formatSongs () {
     const songs = this.state.songs;
     return songs.map((song, i) => {
-        return <SongItem song={song} key={i}/>;
+        return <SongItem song={song} key={i}/> ;
       }
     );
   }
@@ -71,12 +75,9 @@ class DropContainer extends React.Component{
         onDragEnter={this._dragEnter.bind(this)}
         onDragLeave={this._dragLeave.bind(this)}
         onDragOver={this._dragOver.bind(this)}
-        onDrop={this._onDrop.bind(this)}>
-        className={look}
-        ref={(zone) => this.dropZone = zone}>
-        <ul>
-          { songs }
-        </ul>
+        onDrop={this._onDrop.bind(this)}
+        className={look}>
+        <ul>{songs}</ul>
         { button }
       </div>
     );

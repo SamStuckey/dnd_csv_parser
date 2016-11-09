@@ -1,10 +1,56 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-body {
+body li a ul {
   font-family: sans-serif;
+  padding: 0px;
+  margin: 0px;
 }
 
+ul {
+  padding: 0;
+
+  li.songs {
+    float: left;
+    display: block;
+    margin-right: 10px;
+  }
+
+}
+
+a.title {
+  display: block;
+  float: left;
+  margin-right: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+li.song {
+  padding: 10px;
+  border-top: 1px solid grey;
+  min-height: 20px;
+}
+
+li.song:hover {
+  padding: 10px;
+  border-bottom: 1px solid grey;
+  background-color: grey;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+li.tag {
+
+  a {
+    padding: 0 5px;
+    color: blue;
+  }
+}
 
 li > .tag {
   display: block;
@@ -12,10 +58,49 @@ li > .tag {
   border-left: 1px solid grey;
 }
 
+input {
+  margin: 10px;
+  padding: 5px;
+}
+
+ul.tags > li {
+    margin: 0;
+    padding: 0;
+    display: block;
+    float: left;
+}
+
 #search-container {
   border: 1px solid blue;
-  min-width: 500px;
+  width: 700px;
   float: left;
+}
+
+#nav-bar {
+  height: 50px;
+  background: #8a98b6;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+
+  a {
+    display: block;
+    float: left;
+    width: 300px;
+    height: 30px;
+    background-color: white;
+    bottom: 0px;
+    padding-top: 20px;
+    text-align: center;
+  }
+
+}
+
+.app-wrapper {
+  padding-top: 50px;
 }
 
 .drop-container {
@@ -23,9 +108,14 @@ li > .tag {
   width: 500px;
   height: 500px;
   float: right;
-
 }
 
 .hover {
   background-color: #dddddd;
+}
+
+.clear {
+  content: "";
+  clear: both;
+  display: block;
 }

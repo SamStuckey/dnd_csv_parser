@@ -26,6 +26,7 @@ class UploadTagger extends React.Component{
         <form onSubmit={this._addTag.bind(this)}>
           <input
             type="text"
+            placeholder="tag"
             value={this.state.currentTag}
             onChange={this._updateCurrentTag.bind(this)}
             />

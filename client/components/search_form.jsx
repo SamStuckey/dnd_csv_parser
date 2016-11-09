@@ -27,6 +27,7 @@ class SearchForm extends React.Component{
         <form className="search_form" onSubmit={this._handleSubmit.bind(this)}>
           <input
             type=""
+            placeholder="search by tag"
             value={this.state.searchField}
             onChange={this._updateSearch.bind(this)}
             />

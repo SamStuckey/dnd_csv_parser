@@ -8,7 +8,7 @@ class NavBar extends React.Component{
 
   render () {
     return (
-      <div>
+      <div id="nav-bar">
         <a onClick={() => this._show('search')}>Search</a>
         <a onClick={() => this._show('add')}>Add Song</a>
       </div>

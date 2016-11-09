@@ -21,6 +21,9 @@ SongStore.__onDispatch = payload => {
     _cache = [];
     _populateCache(payload.chunk);
     break;
+    case SearchConstants.RESET_CACHE:
+    _resetCache();
+    break;
   }
 };
 
@@ -38,6 +41,10 @@ export const currentList = () => {
 // return an upper limit for the infite scroll
 export const pageCount = () => {
   return _pageCount;
+};
+
+export const _resetCache = () => {
+  _cache = [];
 };
 
 // set _pageCount on initial search component load

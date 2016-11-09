@@ -25,6 +25,12 @@ class Song < ActiveRecord::Base
     end
   end
 
+  def self.find_with_tags(id)
+    self
+      .includes(:tags)
+      .find(id)
+  end
+
   def tags_attributes=(tags)
     self.tags = tags.map do |tag|
       Tag.find_or_create_by(description: tag)

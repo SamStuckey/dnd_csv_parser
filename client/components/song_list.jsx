@@ -4,6 +4,7 @@ import SongItem from './song_item';
 
 import { currentList, SongStore } from '../stores/song_store';
 import { fetchListChunk } from '../actions/search_actions';
+import { resetCache } from '../actions/song_actions';
 
 class SongList extends React.Component{
   constructor(props) {
@@ -17,6 +18,7 @@ class SongList extends React.Component{
   }
 
   componentDidMount() {
+    resetCache();
     fetchListChunk(0);
   }
 
