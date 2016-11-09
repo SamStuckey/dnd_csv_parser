@@ -1,6 +1,6 @@
 TODO
 
-Create upload component
 Create drag and drop
-Fix wacky tags query
 Fix hardcoded page limit
+Style
+Finish Song CRUD

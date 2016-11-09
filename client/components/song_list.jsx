@@ -1,4 +1,7 @@
 import React from 'react';
+
+import SongItem from './song_item';
+
 import { currentList, SongStore } from '../stores/song_store';
 import { fetchListChunk } from '../actions/search_actions';
 
@@ -27,13 +30,7 @@ class SongList extends React.Component{
       if (key === 'page') continue;
 
       const song = songList[key];
-
-      songs.push(
-        <li className="song" key={key}>
-          {song.title}
-          {song.tags.join(', ')}
-        </li>
-      );
+      songs.push(<SongItem song={song} key={key}/>);
     }
 
     return songs;
