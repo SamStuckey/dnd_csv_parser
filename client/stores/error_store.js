@@ -3,7 +3,6 @@ import SongConstants from '../constants/song_constants';
 import AppDispatcher from '../app_dispatcher';
 
 let _notice = [];
-let _songId;
 export const ErrorStore = new Store(AppDispatcher);
 
 ErrorStore.__onDispatch = payload => {
@@ -18,7 +17,6 @@ ErrorStore.__onDispatch = payload => {
 const _informUpload = (song) => {
   resetNotice();
   _notice.push('upload success');
-  _songId = song.id;
   ErrorStore.__emitChange();
 };
 
@@ -28,8 +26,4 @@ export const resetNotice = () => {
 
 export const getNotice = () => {
   return _notice.slice();
-};
-
-export const uploadId = () => {
-  return _songId;
 };

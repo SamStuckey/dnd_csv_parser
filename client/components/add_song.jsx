@@ -48,17 +48,12 @@ class AddSong extends React.Component{
     }
   }
 
-  _showSong () {
-    const id = uploadId();
-    hashHistory.push(`/songs/${id}`);
-  }
-
   _formatUploadedSong () {
     const song = this.state.upload;
     if (song.title) {
       return (
         <div className="notice">
-          <h3><a onClick={this._showSong.bind(this)}>{song.title}</a></h3>
+          <h3>{song.title}</h3>
           <p>uploaded successfully</p>
         </div>
       );
