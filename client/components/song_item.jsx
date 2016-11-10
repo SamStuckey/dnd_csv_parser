@@ -2,7 +2,7 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 
 import Tag from './tag';
-import { dragSong } from '../actions/download_actions';
+import { dragSong, removeFromDownloads } from '../actions/download_actions';
 import { showSong } from '../actions/song_actions';
 
 class SongItem extends React.Component{
@@ -18,7 +18,6 @@ class SongItem extends React.Component{
   }
 
   _dragStart (e) {
-    console.log('drag started');
     dragSong(this.props.song);
   }
 
@@ -30,7 +29,8 @@ class SongItem extends React.Component{
   }
 
   _removeSelf () {
-
+    const song = this.props.song;
+    removeFromDownloads(song);
   }
 
   _addDelete () {

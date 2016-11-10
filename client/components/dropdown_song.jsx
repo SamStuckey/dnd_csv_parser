@@ -14,7 +14,6 @@ class DropdownSong extends React.Component{
   }
 
   _registerDrag () {
-    console.log('dropdown drag fired');
     dragSong(this.props.song);
   }
 
