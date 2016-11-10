@@ -10,6 +10,9 @@ SongViewStore.__onDispatch = payload => {
     case SongConstants.SONG_RECEIVED:
       _updateSong(payload.song);
     break;
+    case SongConstants.UPDATE_SUCCESS:
+      _updateSong(payload.song);
+      break;
   }
 };
 

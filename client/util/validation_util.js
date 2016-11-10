@@ -4,3 +4,4 @@ export const isValid = (str) => {
     str.match(/[a-zA-Z\d\s-]*/)[0] === str
   );
 };
+  

@@ -52,7 +52,7 @@ class Search extends React.Component{
 
   render () {
     return (
-      <div id="search-page">
+      <div id="search-page" className="page">
         <div id="search-container">
           <SearchForm />
           <TagList />

@@ -26,3 +26,13 @@ export const fetchSong = (id, success, error) => {
     error
   });
 };
+
+export const fillFinder = (str, success, error) => {
+  $.ajax({
+    type: 'GET',
+    url: 'songs',
+    data: {song: {string: str}},
+    success,
+    error
+  });
+};

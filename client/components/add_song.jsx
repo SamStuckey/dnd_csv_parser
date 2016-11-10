@@ -63,7 +63,7 @@ class AddSong extends React.Component{
     return(
       <div>
         <form onSubmit={this._handleSubmit.bind(this)}>
-          { this.state.tiErr }
+          <p className="error">{ this.state.tiErr }</p>
           <input
             className="title"
             placeholder="title"
@@ -72,8 +72,8 @@ class AddSong extends React.Component{
             />
           <input type="submit" value="submit"/>
         </form>
+        <p className="error">{ this.state.taErr }</p>
         <UploadTagger/>
-        { this.state.taErr }
         <TagList />
         { uploadedSong }
       </div>

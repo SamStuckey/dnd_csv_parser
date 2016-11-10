@@ -10,6 +10,10 @@ class Song < ActiveRecord::Base
   validates_presence_of :tags
   accepts_nested_attributes_for :tags, allow_destroy: true
 
+  def self.match_titles(str)
+    Song.where("title ILIKE ?", '%'+str+'%').limit(5)
+  end
+
   def self.get_page(page, tags)
     if tags
       self

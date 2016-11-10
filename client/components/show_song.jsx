@@ -2,6 +2,7 @@ import React from 'react';
 
 import TagList from './tag_list';
 import EditSong from './edit_song';
+import UploadTagger from './upload_tagger';
 
 import { singleSong, SongViewStore } from '../stores/song_view_store';
 import { showSong } from '../actions/song_actions';
@@ -10,7 +11,7 @@ class ShowSong extends React.Component{
   constructor (props) {
     super(props);
     this.SongViewListener = SongViewStore.addListener(this._updateSong.bind(this));
-    this.state = {song: {}};
+    this.state = {song: {}, updateMsg: ""};
   }
 
   componentDidMount () {
@@ -32,8 +33,10 @@ class ShowSong extends React.Component{
       <div>
         {song.title}
         <EditSong song={song}/>
+        <UploadTagger />
         <TagList />
       </div>
+
     );
   }
 }

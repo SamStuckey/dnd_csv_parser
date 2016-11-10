@@ -1,7 +1,13 @@
 class SongsController < ApplicationController
   def index
     @page, tags = song_params[:page], song_params[:tags]
-    @songs = Song.get_page(@page, tags)
+    str = song_params[:string]
+
+    if str
+      @songs = Song.match_titles(str)
+    else
+      @songs = Song.get_page(@page, tags)
+    end
 
     if song_params[:counter]
       render json: Song.count
@@ -47,6 +53,8 @@ class SongsController < ApplicationController
 
   private
   def song_params
-    params.require(:song).permit(:title, :page, :songId, :counter, song_list: [], tags: [])
+    params.require(:song).permit(
+    :title, :page, :string, :songId, :counter, song_list: [], tags: []
+    )
   end
 end

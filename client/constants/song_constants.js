@@ -1,5 +1,7 @@
 const SongConstants = {
   SONG_RECEIVED: "SONG_RECEIVED",
-  RESET_CACHE: "RESET_CACHE"
+  RESET_CACHE: "RESET_CACHE",
+  UPDATE_SUCCESS: "UPDATE_SUCCESS",
+  UPDATE_FINDER: "UPDATE_FINDER"
 };
 module.exports = SongConstants;

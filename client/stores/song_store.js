@@ -43,12 +43,12 @@ export const pageCount = () => {
   return _pageCount;
 };
 
-export const _resetCache = () => {
-  _cache = [];
+export const _resetCache = (song) => {
+  _cache = song ? song : [];
 };
 
 // set _pageCount on initial search component load
-const _setPageCount = (limit) => {
+const _setPageCount = limit => {
   _pageCount = Math.ceil(limit / 50); // 50 results per page
 };
 

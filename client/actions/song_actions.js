@@ -1,19 +1,19 @@
 import SongConstants from '../constants/song_constants';
 import TagConstants from '../constants/tag_constants';
 import AppDispatcher from '../app_dispatcher';
-import { editSong, fetchSong } from '../util/song_api_util';
+import { editSong, fetchSong, fillFinder } from '../util/song_api_util';
 
 export const updateSong = (songId, title, tags) => {
   editSong(
     songId,
     title,
     tags,
-    receiveSong,
+    receiveUpdate,
     updateError
   );
 };
 
-export const showSong = (songId) => {
+export const showSong = songId => {
   fetchSong(
     songId,
     receiveSong,
@@ -21,9 +21,31 @@ export const showSong = (songId) => {
   );
 };
 
+export const updateFuzzyFinder = str => {
+  fillFinder(
+    str,
+    receiveFinderSongs,
+    finderError
+  );
+};
+
 export const resetCache = () => {
   AppDispatcher.dispatch({
     actionType: SongConstants.RESET_CACHE
+  });
+};
+
+const receiveFinderSongs = songs => {
+  AppDispatcher.dispatch({
+    actionType: SongConstants.UPDATE_FINDER,
+    songs: songs
+  });
+};
+
+const receiveUpdate = song => {
+  AppDispatcher.dispatch({
+    actionType: SongConstants.UPDATE_SUCCESS,
+    song: song
   });
 };
 
@@ -44,5 +66,9 @@ const updateError = error => {
 };
 
 const retrievalError = error => {
+  console.log(error);
+};
+
+const finderError = error => {
   console.log(error);
 };
