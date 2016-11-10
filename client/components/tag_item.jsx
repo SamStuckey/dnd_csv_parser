@@ -15,7 +15,7 @@ class TagItem extends React.Component{
     return (
       <li className="tag">
         {this.props.tag}
-        <button onClick={this._removeSelf.bind(this)}>X</button>
+        <button className="x" onClick={this._removeSelf.bind(this)}>X</button>
       </li>
     );
   }

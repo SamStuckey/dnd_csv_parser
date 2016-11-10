@@ -2,7 +2,7 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 
 import Tag from './tag';
-import { dragSong } from '../actions/dnd_actions';
+import { dragSong } from '../actions/download_actions';
 import { showSong } from '../actions/song_actions';
 
 class SongItem extends React.Component{
@@ -18,6 +18,7 @@ class SongItem extends React.Component{
   }
 
   _dragStart (e) {
+    console.log('drag started');
     dragSong(this.props.song);
   }
 
@@ -28,15 +29,30 @@ class SongItem extends React.Component{
     hashHistory.push(`/songs/${id}`);
   }
 
+  _removeSelf () {
+
+  }
+
+  _addDelete () {
+    if (this.props.deleteable) {
+      return <button
+        className="x"
+        onClick={this._removeSelf.bind(this)}
+        >X</button>;
+    }
+  }
+
   render () {
     const song = this.props.song;
     const tags = this._formatTags();
+    const deleteOption = this._addDelete();
     return (
       <li
         draggable="true"
         className="song clear"
         onDragStart={this._dragStart.bind(this)}
         >
+        {deleteOption}
         <a
           onClick={this._showSong.bind(this)}
           className="title"
@@ -44,6 +60,7 @@ class SongItem extends React.Component{
         <ul className="tags">
           { tags }
         </ul>
+
       </li>
     );
   }

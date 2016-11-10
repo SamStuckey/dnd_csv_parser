@@ -62,7 +62,7 @@ class SearchForm extends React.Component{
           <input
             type="text"
             className="text"
-            placeholder="search by tag"
+            placeholder="search by tag or title"
             value={this.state.searchField}
             onBlur={this._hideDropdown.bind(this)}
             onChange={this._updateSearch.bind(this)}

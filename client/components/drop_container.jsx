@@ -4,21 +4,33 @@ import SongItem from './song_item';
 
 import { movingSong } from '../stores/dnd_store';
 import { createCSV, downloadCSV } from '../util/export_util';
+import { addToDownloads } from '../actions/download_actions';
+import { allSongs, DownloadStore } from '../stores/download_store';
 
 class DropContainer extends React.Component{
   constructor (props) {
     super(props);
     this.state = {songs: [], active: false};
+    this.dlListener = DownloadStore.addListener(this._updateSongs.bind(this));
+  }
+
+  componentWillUnmount () {
+    this.dlListener.remove();
+  }
+
+  _updateSongs () {
+    const songs = allSongs();
+    this.setState({songs: songs});
   }
 
   _dragEnter (e) {
     e.preventDefault();
-    this.setState({active:true});
+    this.setState({active: true});
   }
 
   _dragLeave (e) {
     e.preventDefault(e);
-    this.setState({active:false});
+    this.setState({active: false});
   }
 
   _export (e) {
@@ -40,31 +52,32 @@ class DropContainer extends React.Component{
 
   _dragOver (e) {
     e.preventDefault();
-    console.log('drag over');
   }
 
   _onDrop (e) {
     e.preventDefault();
 
     const song = movingSong();
-    const oldState = this.state.songs;
-
-    if (this._isNew(song)) oldState.push(song);
-    this.setState({songs: oldState, active: false});
+    addToDownloads(song);
+    this.setState({active: false});
   }
 
   _formatSongs () {
     const songs = this.state.songs;
     return songs.map((song, i) => {
-        return <SongItem song={song} key={i}/> ;
+        return <SongItem deleteable={true} song={song} key={i}/> ;
       }
     );
   }
 
+
+
   render () {
     let button;
     if (this.state.songs.length > 0) {
-      button = <button onClick={this._export.bind(this)}>Download</button>;
+      button = <button
+        className="download"
+        onClick={this._export.bind(this)}>Download</button>;
     }
 
     const songs = this._formatSongs();

@@ -15,7 +15,6 @@ DnDStore.__onDispatch = payload => {
 
 const _dragSong = (song) => {
   _song = song;
-  console.log('song in store');
   DnDStore.__emitChange();
 };
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
 
-import { dragSong } from '../actions/dnd_actions';
-
+import { dragSong } from '../actions/download_actions';
 
 class DropdownSong extends React.Component{
   constructor (props) {
@@ -15,6 +14,7 @@ class DropdownSong extends React.Component{
   }
 
   _registerDrag () {
+    console.log('dropdown drag fired');
     dragSong(this.props.song);
   }
 
