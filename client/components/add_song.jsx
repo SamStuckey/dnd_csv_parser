@@ -1,4 +1,5 @@
 import React from 'react';
+import { hashHistory } from 'react-router';
 
 import UploadTagger from './upload_tagger';
 import TagList from './tag_list';
@@ -9,6 +10,7 @@ import { uploadedSong, UploadStore } from '../stores/upload_store';
 import { resetTags } from '../actions/tag_actions';
 import { isValid } from '../util/validation_util';
 import { allTags } from '../stores/tag_store';
+import { uploadId } from '../stores/error_store';
 
 class AddSong extends React.Component{
   constructor (props) {
@@ -46,12 +48,17 @@ class AddSong extends React.Component{
     }
   }
 
+  _showSong () {
+    const id = uploadId();
+    hashHistory.push(`/songs/${id}`);
+  }
+
   _formatUploadedSong () {
     const song = this.state.upload;
     if (song.title) {
       return (
-        <div>
-          <h3>{song.title}</h3>
+        <div className="notice">
+          <h3><a onClick={this._showSong.bind(this)}>{song.title}</a></h3>
           <p>uploaded successfully</p>
         </div>
       );
@@ -61,11 +68,10 @@ class AddSong extends React.Component{
   render () {
     const uploadedSong = this._formatUploadedSong();
     return(
-      <div>
+      <div className="song-page">
         <form onSubmit={this._handleSubmit.bind(this)}>
           <p className="error">{ this.state.tiErr }</p>
           <input
-            className="title"
             placeholder="title"
             value={this.state.title}
             onChange={this._updateTitle.bind(this)}

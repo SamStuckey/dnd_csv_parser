@@ -11,6 +11,10 @@ class SearchForm extends React.Component{
     document.addEventListener('keydown', this._checkKey.bind(this), false);
   }
 
+  componentWillUnmount () {
+    document.removeEventListener('keydown', this._checkKey.bind(this), false);
+  }
+
   _checkKey (e) {
     if (e.keyCode == 13) {
       this.setState({dropVis: false});

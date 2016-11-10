@@ -73,11 +73,15 @@ class DropContainer extends React.Component{
 
 
   render () {
-    let button;
+    let button, instrutions;
     if (this.state.songs.length > 0) {
       button = <button
         className="download"
         onClick={this._export.bind(this)}>Download</button>;
+    } else {
+      instrutions = <h3
+        className="notice">Drag and drop files here for download
+      </h3>;
     }
 
     const songs = this._formatSongs();
@@ -92,6 +96,7 @@ class DropContainer extends React.Component{
         className={look}>
         <ul>{songs}</ul>
         { button }
+        { instrutions }
       </div>
     );
   }

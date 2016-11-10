@@ -12,7 +12,6 @@ export const submitSong = (title, tags) => {
 };
 
 const informSuccess = song => {
-  console.log('song uploaded successfully');
   AppDispatcher.dispatch({
     actionType: UploadConstants.UPLOAD_SUCCESS,
     song: song

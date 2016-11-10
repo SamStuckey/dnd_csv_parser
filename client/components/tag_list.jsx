@@ -30,7 +30,7 @@ class TagList extends React.Component{
 
   render () {
     const tags = this._formatTags();
-    return <ul>{tags}</ul>;
+    return <ul className="tag-list">{tags}</ul>;
   }
 }
 

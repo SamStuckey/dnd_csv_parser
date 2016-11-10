@@ -30,8 +30,8 @@ class ShowSong extends React.Component{
     if (s) song = s;
 
     return (
-      <div>
-        {song.title}
+      <div className="song-page">
+        <h3 className="notice">{song.title}</h3>
         <EditSong song={song}/>
         <UploadTagger />
         <TagList />
