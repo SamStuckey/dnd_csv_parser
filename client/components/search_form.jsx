@@ -8,6 +8,13 @@ class SearchForm extends React.Component{
   constructor (props) {
     super(props);
     this.state={searchField: "", dropVis: false, blocked: false};
+    document.addEventListener('keydown', this._checkKey.bind(this), false);
+  }
+
+  _checkKey (e) {
+    if (e.keyCode == 13) {
+      this.setState({dropVis: false});
+    }
   }
 
   _updateSearch (e) {
