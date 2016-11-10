@@ -1,6 +1,0 @@
-TODO
-
-Create drag and drop
-Fix hardcoded page limit
-Style
-Finish Song CRUD
