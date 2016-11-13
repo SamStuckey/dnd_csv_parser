@@ -11,7 +11,8 @@
     "npm":"3.10.8"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/webpack"
+    "postinstall": "./node_modules/.bin/webpack",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",

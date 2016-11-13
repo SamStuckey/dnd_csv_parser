@@ -4,3 +4,4 @@ module SharedValidations
     !!str && str[/[a-zA-Z\d\s-]*/] == str
   end
 end
+

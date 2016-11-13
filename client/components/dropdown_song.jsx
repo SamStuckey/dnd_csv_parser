@@ -15,6 +15,7 @@ class DropdownSong extends React.Component{
 
   _registerDrag () {
     dragSong(this.props.song);
+    this.props.closeMenu();
   }
 
   render () {

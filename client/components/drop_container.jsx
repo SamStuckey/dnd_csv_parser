@@ -70,8 +70,6 @@ class DropContainer extends React.Component{
     );
   }
 
-
-
   render () {
     let button, instrutions;
     if (this.state.songs.length > 0) {

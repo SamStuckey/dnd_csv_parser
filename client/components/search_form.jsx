@@ -54,6 +54,7 @@ class SearchForm extends React.Component{
       <FinderDropdown
         block={this.block.bind(this)}
         unblock={this.unblock.bind(this)}
+	closeWin={this._hideDropdown.bind(this)}
         />
     );
   }

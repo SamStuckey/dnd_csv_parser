@@ -28,11 +28,16 @@ class FinderDropdown extends React.Component{
     this.setState({songs: songs, visible: true});
   }
 
+  _closeMenu () {
+    this.props.unblock();
+    this.props.closeWin();
+  }
+
   _formatSongs () {
     const songs = this.state.songs;
     return Object.keys(songs).map((songId, i) => {
       const song = songs[songId];
-      return <DropdownSong song={song} key={i}/>;
+      return <DropdownSong song={song} key={i} closeMenu={this._closeMenu.bind(this)}/>;
     });
   }
 
