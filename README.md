@@ -1,5 +1,3 @@
-## jpChallenge
-
 A simple drag and drop CSV file parser.
 
 - search files by title, or add tags from the search compent.
